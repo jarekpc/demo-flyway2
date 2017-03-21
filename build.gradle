@@ -1,0 +1,47 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.1.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+        jcenter()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+jar {
+	baseName = 'demo-flyway2'
+	version = '0.0.1-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	jcenter()
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-rest
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest', version: '1.5.2.RELEASE'
+	// https://mvnrepository.com/artifact/net.rakugakibox.spring.boot/orika-spring-boot-starter
+	compile group: 'net.rakugakibox.spring.boot', name: 'orika-spring-boot-starter', version: '1.0.0'
+	compile('org.flywaydb:flyway-core')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	// https://mvnrepository.com/artifact/org.projectlombok/lombok
+	compile group: 'org.projectlombok', name: 'lombok', version: '1.16.14'
+	//compileOnly('org.projectlombok:lombok')
+	//compile('org.projectlombok:lombok:1.16.14')
+	runtime('com.h2database:h2')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+
+}
