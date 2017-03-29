@@ -23,15 +23,11 @@ public class PersonService {
 	@Autowired
 	private MapperFacade orikaMapperFacade;
 	
-	//get Dto bledna metoda
-	public PersonDto findAllPerson(){		
-		//return departmentsRepository.findAllByDeletedFalse().stream().map(mapper::map).collect(Collectors.toList());
-		List<Person> listsPerson = new ArrayList<Person>(); 
-		for(Person p :personRepository.findAll()){
-			listsPerson.add(p);
-		}		
-		PersonDto personDto = orikaMapperFacade.map(listsPerson.get(1), PersonDto.class);
-		return personDto;		
+	//get
+	public List<PersonDto> findAllPerson(){						
+		List<PersonDto> listsPersonDto = new ArrayList<PersonDto>();		
+		orikaMapperFacade.mapAsCollection(personRepository.findAll(), listsPersonDto, PersonDto.class);
+		return listsPersonDto;
 	}
 	
 	public PersonDto addPerson(PersonDto personDto){
@@ -40,4 +36,12 @@ public class PersonService {
 		return orikaMapperFacade.map(p, PersonDto.class);
 	}
 	
+	public PersonDto getPerson(Integer id){
+		return orikaMapperFacade.map(personRepository.findOne(id), PersonDto.class);
+	}
+	
+	public void deletePerson(Integer id){
+		Person person = personRepository.findOne(id);
+		personRepository.delete(person);		
+	}
 }
